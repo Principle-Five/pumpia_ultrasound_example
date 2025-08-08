@@ -1,13 +1,18 @@
 from math import sqrt
+
+from pumpia.module_handling.in_outs.viewer_ios import DicomViewerIO
 from pumpia.module_handling.modules import BaseModule
 from pumpia.module_handling.in_outs.simple import (FloatOutput,
                                                    IntInput,
-                                                   FloatInput,
-                                                   StringOutput)
+                                                   FloatInput)
+from pumpia.file_handling.dicom_tags import USTags
+from pumpia.file_handling.dicom_structures import Series, Instance
 
 
 class Calculator(BaseModule):
-    warning = StringOutput("Values are calculated based on the image loaded on main page.")
+    viewer = DicomViewerIO(row=0,
+                           column=0,
+                           allow_drag_drop=False)
 
     pixel_width = FloatOutput(verbose_name="Pixel Width (mm)")
     pixel_height = FloatOutput(verbose_name="Pixel Height (mm)")
@@ -24,13 +29,22 @@ class Calculator(BaseModule):
     def load_commands(self):
         self.register_command("Convert Measurements", self.calculate)
 
+    def set_values(self, image: Series | Instance):
+        self.pixel_width.value = 10 * float(
+            image.get_tag(USTags.PhysicalDeltaX))  # type: ignore
+        self.pixel_height.value = 10 * float(
+            image.get_tag(USTags.PhysicalDeltaY))  # type: ignore
+
     def calculate(self):
-        self.x_length_mm.value = (self.pixel_width.value
-                                  * self.x_length_pix.value)
-        self.y_length_mm.value = (self.pixel_height.value
-                                  * self.y_length_pix.value)
-        self.total_length_mm.value = sqrt((self.x_length_mm.value**2
-                                           + self.y_length_mm.value**2))
-        self.area_mm.value = (self.area_pix.value
-                              * self.pixel_height.value
-                              * self.pixel_width.value)
+        image = self.viewer.image
+        if image is not None:
+            self.set_values(image)
+            self.x_length_mm.value = (self.pixel_width.value
+                                      * self.x_length_pix.value)
+            self.y_length_mm.value = (self.pixel_height.value
+                                      * self.y_length_pix.value)
+            self.total_length_mm.value = sqrt((self.x_length_mm.value**2
+                                               + self.y_length_mm.value**2))
+            self.area_mm.value = (self.area_pix.value
+                                  * self.pixel_height.value
+                                  * self.pixel_width.value)
