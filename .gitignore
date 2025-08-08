@@ -81,6 +81,8 @@ doc/cdoc/build
 .cache
 pip-wheel-metadata
 .python-version
+#pyinstaller files
+*.spec
 
 # Logs and databases #
 ######################
