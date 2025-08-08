@@ -1,0 +1,3 @@
+from simple_ultrasound_collection.ultrasound_collection import SimpleUSCollection
+
+SimpleUSCollection.run()
