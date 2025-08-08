@@ -8,6 +8,7 @@ from simple_ultrasound_collection.modules.measurement_calculator import Calculat
 
 
 class SimpleUSTool(BaseCollection):
+    version = (1, 0, 0)
     name = "Simple Ultrasound Tool"
 
     viewer = DicomViewerIO(row=0, column=0)
