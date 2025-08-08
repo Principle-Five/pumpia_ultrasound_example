@@ -42,5 +42,7 @@ The buttons "copy horizontal/vertical" in this page can be used to copy values t
 ## Region Module
 Press the "Draw Region Boundary" button to populate the information for the first region in the image in the viewer, and draw the region on the image shown.
 
+The number of regions in the image is also provided to demonstrate how different images can have a different amount depending on content.
+
 ## Calculator
 This contains a simple calculator for converting between measurements in pixel units - like those provided in the measurements of ROIs - and real world values. The values are calculated using the button "Convert Measurements". This uses the information from the DICOM header for the image shown on the viewer.
