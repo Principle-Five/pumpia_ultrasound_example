@@ -1,0 +1,3 @@
+pumpia == 0.5.*
+pylibjpeg
+pylibjpeg-libjpeg
