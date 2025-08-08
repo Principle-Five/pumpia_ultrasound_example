@@ -1,3 +1,3 @@
-from simple_ultrasound_collection.ultrasound_collection import SimpleUSCollection
+from simple_ultrasound_collection.ultrasound_collection import SimpleUSTool
 
-SimpleUSCollection.run()
+SimpleUSTool.run()

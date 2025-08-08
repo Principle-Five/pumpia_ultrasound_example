@@ -7,8 +7,8 @@ from simple_ultrasound_collection.modules.region_module import RegionModule
 from simple_ultrasound_collection.modules.measurement_calculator import Calculator
 
 
-class SimpleUSCollection(BaseCollection):
-    name = "Simple Ultrasound Module"
+class SimpleUSTool(BaseCollection):
+    name = "Simple Ultrasound Tool"
 
     viewer = DicomViewerIO(row=0, column=0)
 
